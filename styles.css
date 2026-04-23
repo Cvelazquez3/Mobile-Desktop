@@ -6,11 +6,21 @@
 }
 
 body {
+    position: relative;
     background: url('https://www.comalagob.mx/images/home3.jpg') center/cover fixed;
     color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
 }
 
 /* HEADER */
@@ -22,6 +32,10 @@ header {
 
 header img {
     width: 180px;
+}
+
+#titulo-principal {
+    text-align: center;
 }
 
 /* MAIN */
@@ -105,14 +119,33 @@ footer section {
     min-width: 200px;
 }
 
+footer iframe {
+    width: 100%;
+}
+
 footer h5 {
     margin-bottom: 10px;
 }
 
 footer a {
     display: block;
-    color: #555;
-    margin-bottom: 5px;
+    color: #1a73e8;
+    margin-bottom: 8px;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #0b57d0;
+    text-decoration: none;
+}
+
+footer a:focus {
+    outline: 3px solid #ffbf47;
+    outline-offset: 2px;
+}
+
+footer a:active {
+    color: #063a80;
 }
 
 footer div {

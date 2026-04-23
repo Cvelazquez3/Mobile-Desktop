@@ -3,53 +3,146 @@ const container = document.getElementById("contenido");
 const returnButtom = `<a href="#" class="button secondary"><i class="fa-solid fa-house"></i> Volver</a>`;
 
 const home = `
-<div class="home">
-    <div class="card">
-        <h2>Iniciar Sesión</h2>
-        <p>Accede a tu cuenta para gestionar tus trámites.</p>
-        <a href="#login" class="button">Iniciar Sesión</a>
-    </div>
+<section class="home" aria-labelledby="titulo-principal">
+    <h1 id="titulo-principal">Servicios disponibles</h1>
 
-    <div class="card">
-        <h2>Consultar Trámites</h2>
-        <p>Consulta el estado de trámites en tiempo real.</p>
-        <a href="#process" class="button secondary">Consultar Trámites</a>
-    </div>
-</div>
+    <article class="card">
+        <h2 id="login-title">Iniciar sesión</h2>
+        <p id="login-desc">Accede a tu cuenta para gestionar tus trámites.</p>
+        <a href="#login" class="button" aria-describedby="login-desc">
+            <i class="fa-solid fa-user"></i>
+            Iniciar sesión
+        </a>
+    </article>
+
+    <article class="card">
+        <h2 id="process-title">Consultar trámites</h2>
+        <p id="process-desc">Consulta el estado de trámites en tiempo real.</p>
+        <a href="#process" class="button secondary" aria-describedby="process-desc">
+            <i class="fa-solid fa-circle-question"></i>
+            Consultar trámites
+        </a>
+    </article>
+</section>
 `;
 
 const login = `
-<div class="login">
+<section class="login" aria-labelledby="login-title">
     ${returnButtom}
 
     <div class="card">
-        <h2>Login</h2>
+        <h1 id="login-title">Iniciar sesión</h1>
+
         <form action="https://www.comalagob.mx/login" method="post">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button>Acceder</button>
+            
+            <div class="form-group">
+                <label for="email">
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    Correo electrónico
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">
+                    <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                    Contraseña
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+                Acceder
+            </button>
+
         </form>
     </div>
-</div>
+</section>
 `;
 
 const process = `
-<div class="process">
+<section class="process" aria-labelledby="consulta-title">
     ${returnButtom}
 
     <div class="card">
-        <h2>Consulta</h2>
-        <form action="#">
-            <input type="text" name="clave_catastral" placeholder="Clave catastral" required>
-            <select name="id_tramite">
-                <option value="1">Asignación</option>
-            </select>
-            <input type="number" name="ano" placeholder="Año" required>
-            <input type="number" name="ano_id" placeholder="ID" required>
-            <button>Buscar</button>
+        <h1 id="consulta-title">Consulta de trámite</h1>
+
+        <form action="#" method="get">
+            
+            <div class="form-group">
+                <label for="clave">
+                    <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                    Clave catastral
+                </label>
+                <input 
+                    type="text" 
+                    id="clave" 
+                    name="clave_catastral" 
+                    required
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="tramite">
+                    <i class="fa-solid fa-list" aria-hidden="true"></i>
+                    Tipo de trámite
+                </label>
+                <select id="tramite" name="id_tramite" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="1">Asignación</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ano">
+                    <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                    Año
+                </label>
+                <input 
+                    type="number" 
+                    id="ano" 
+                    name="ano" 
+                    min="1900" 
+                    max="2100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="folio">
+                    <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                    ID del trámite
+                </label>
+                <input 
+                    type="number" 
+                    id="folio" 
+                    name="ano_id" 
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                Buscar
+            </button>
+
         </form>
     </div>
-</div>
+</section>
 `;
 
 function render() {

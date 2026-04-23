@@ -13,34 +13,37 @@
 
 <body>
 
-    <header>
-        <img src="https://www.comalagob.mx/images/ayuntamiento.png">
+    <header role="banner">
+        <img src="https://www.comalagob.mx/images/ayuntamiento.png" alt="Logo del Ayuntamiento de Comala">
     </header>
 
-    <main id="contenido"></main>
+    <main id="contenido" role="main"></main>
 
-    <footer>
+    <footer role="contentinfo">
         <section>
-            <h5>Ubicación</h5>
-            <p>Leona Vicario 1, Centro, Comala</p>
-            <p>Tel: 312 31 5 50 20</p>
+            <h5>Ubicación <i class="fa-solid fa-location-crosshairs"></i></h5>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.055975463196!2d-103.75886059999999!3d19.3233772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8425449c3c6e0807%3A0x286e62c7079e87cb!2sC.%20Leona%20Vicario%201%2C%20Centro%2C%2028450%20Comala%2C%20Col.!5e0!3m2!1ses-419!2smx!4v1776916652337!5m2!1ses-419!2smx"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             <p>Lunes a Viernes 8:30 - 15:00</p>
         </section>
 
         <section>
-            <h5>Enlaces</h5>
-            <a href="https://www.comalagob.mx/ciudadano/consulta">Consulta</a>
-            <a href="http://comala.gob.mx/">Sitio oficial</a>
+            <h5>Enlaces <i class="fa-solid fa-link"></i></h5>
+            <a href="https://www.comalagob.mx/ciudadano/consulta">Consulta ciudadana</a>
+            <a href="http://comala.gob.mx/">Sitio oficial del Ayuntamiento</a>
         </section>
 
         <section>
-            <h5>Contacto</h5>
-            <a href="mailto:contacto@ayuntamientocomala.gob.mx">Correo</a>
+            <h5>Contacto <i class="fa-solid fa-address-book"></i></h5>
+            <a href="mailto:contacto@ayuntamientocomala.gob.mx"><i class="fa-solid fa-at"></i> Enviar correo</a>
+            <a href="tel:+523123155020"><i class="fa-solid fa-phone"></i> Llamanos al: 312 31 5 50 20</a>
         </section>
 
-        <div>
+        <p>
             © 2024 Ayuntamiento de Comala
-        </div>
+        </p>
     </footer>
 
     <script src="script.js"></script>
