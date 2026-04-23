@@ -7,14 +7,22 @@
     <title>Bienvenido</title>
 
     <link rel="icon" href="https://www.comalagob.mx/favicons/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
     <header role="banner">
-        <img src="https://www.comalagob.mx/images/ayuntamiento.png" alt="Logo del Ayuntamiento de Comala">
+        <div class="header-inner container">
+            <div class="brand">
+                <img src="https://www.comalagob.mx/images/ayuntamiento.png" alt="Logo del Ayuntamiento de Comala">
+            </div>
+        </div>
     </header>
 
     <main id="contenido" role="main"></main>
@@ -25,14 +33,14 @@
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.055975463196!2d-103.75886059999999!3d19.3233772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8425449c3c6e0807%3A0x286e62c7079e87cb!2sC.%20Leona%20Vicario%201%2C%20Centro%2C%2028450%20Comala%2C%20Col.!5e0!3m2!1ses-419!2smx!4v1776916652337!5m2!1ses-419!2smx"
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                referrerpolicy="no-referrer-when-downgrade" title="Mapa de ubicación del Ayuntamiento de Comala"></iframe>
             <p>Lunes a Viernes 8:30 - 15:00</p>
         </section>
 
         <section>
             <h5>Enlaces <i class="fa-solid fa-link"></i></h5>
-            <a href="https://www.comalagob.mx/ciudadano/consulta">Consulta ciudadana</a>
-            <a href="http://comala.gob.mx/">Sitio oficial del Ayuntamiento</a>
+            <a href="https://www.comalagob.mx/ciudadano/consulta"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Consulta ciudadana</a>
+            <a href="http://comala.gob.mx/"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i> Sitio oficial del Ayuntamiento</a>
         </section>
 
         <section>
@@ -41,9 +49,9 @@
             <a href="tel:+523123155020"><i class="fa-solid fa-phone"></i> Llamanos al: 312 31 5 50 20</a>
         </section>
 
-        <p>
-            © 2024 Ayuntamiento de Comala
-        </p>
+        <div class="footer-bottom">
+            <p>© 2024 Ayuntamiento de Comala</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>

@@ -1,13 +1,13 @@
 const container = document.getElementById("contenido");
 
-const returnButtom = `<a href="#" class="button secondary"><i class="fa-solid fa-house"></i> Volver</a>`;
+const returnButton = `<a href="#" class="button secondary" data-action="home"><i class="fa-solid fa-house"></i> Volver</a>`;
 
 const home = `
 <section class="home" aria-labelledby="titulo-principal">
     <h1 id="titulo-principal">Servicios disponibles</h1>
 
     <article class="card">
-        <h2 id="login-title">Iniciar sesión</h2>
+        <h2 id="home-login-title">Iniciar sesión</h2>
         <p id="login-desc">Accede a tu cuenta para gestionar tus trámites.</p>
         <a href="#login" class="button" aria-describedby="login-desc">
             <i class="fa-solid fa-user"></i>
@@ -16,7 +16,7 @@ const home = `
     </article>
 
     <article class="card">
-        <h2 id="process-title">Consultar trámites</h2>
+        <h2 id="home-process-title">Consultar trámites</h2>
         <p id="process-desc">Consulta el estado de trámites en tiempo real.</p>
         <a href="#process" class="button secondary" aria-describedby="process-desc">
             <i class="fa-solid fa-circle-question"></i>
@@ -28,11 +28,10 @@ const home = `
 
 const login = `
 <section class="login" aria-labelledby="login-title">
-    ${returnButtom}
+    ${returnButton}
 
     <div class="card">
         <h1 id="login-title">Iniciar sesión</h1>
-
         <form action="https://www.comalagob.mx/login" method="post">
             
             <div class="form-group">
@@ -75,7 +74,7 @@ const login = `
 
 const process = `
 <section class="process" aria-labelledby="consulta-title">
-    ${returnButtom}
+    ${returnButton}
 
     <div class="card">
         <h1 id="consulta-title">Consulta de trámite</h1>
@@ -148,10 +147,26 @@ const process = `
 function render() {
     const hash = location.hash;
 
-    if (hash === "#login") container.innerHTML = login;
-    else if (hash === "#process") container.innerHTML = process;
-    else container.innerHTML = home;
+    if (hash === "#login") container.innerHTML = `<div class="container">${login}</div>`;
+    else if (hash === "#process") container.innerHTML = `<div class="container">${process}</div>`;
+    else container.innerHTML = `<div class="container">${home}</div>`;
+
+    // Move focus to first heading for keyboard users
+    const firstHeading = container.querySelector('h1, h2');
+    if(firstHeading){
+        firstHeading.setAttribute('tabindex','-1');
+        firstHeading.focus();
+    }
 }
 
 window.addEventListener("hashchange", render);
 window.addEventListener("load", render);
+
+// Handle return/home action links via delegated listener
+document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-action="home"]');
+    if(btn){
+        e.preventDefault();
+        location.hash = '';
+    }
+});
