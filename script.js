@@ -157,6 +157,10 @@ function render() {
         firstHeading.setAttribute('tabindex','-1');
         firstHeading.focus();
     }
+
+    // Attach form handlers and other runtime bindings for dynamic content
+    attachFormHandlers();
+    updateNavActive();
 }
 
 window.addEventListener("hashchange", render);
@@ -169,4 +173,118 @@ document.addEventListener('click', function(e){
         e.preventDefault();
         location.hash = '';
     }
+});
+
+/* ---------------- Accessibility + Gamification helpers ---------------- */
+
+const announcer = document.getElementById('announcer');
+const progressEl = document.getElementById('progress');
+const toastEl = document.getElementById('toast');
+
+function announce(msg){
+    if(announcer) announcer.textContent = msg;
+}
+
+function vibrate(pattern){
+    try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){}
+}
+
+function setProgress(value){
+    const v = Math.max(0, Math.min(100, Math.round(value)));
+    if(progressEl){
+        progressEl.style.width = v + '%';
+        progressEl.setAttribute('aria-valuenow', String(v));
+    }
+    localStorage.setItem('md_progress', String(v));
+}
+
+function incrementProgress(amount){
+    const cur = Number(localStorage.getItem('md_progress') || 0);
+    setProgress(cur + amount);
+}
+
+function restoreProgress(){
+    const cur = Number(localStorage.getItem('md_progress') || 0);
+    setProgress(cur);
+}
+
+function showToast(message, timeout = 2200){
+    if(!toastEl) return;
+    toastEl.textContent = message;
+    toastEl.hidden = false;
+    toastEl.classList.add('show');
+    announce(message);
+    setTimeout(()=>{
+        toastEl.classList.remove('show');
+        setTimeout(()=> toastEl.hidden = true, 300);
+    }, timeout);
+}
+
+function updateNavActive(){
+    const items = document.querySelectorAll('.bottom-nav-item');
+    const hash = location.hash || '#';
+    items.forEach(i=>{
+        const nav = i.getAttribute('data-nav');
+        if((hash === '' || hash === '#') && nav === 'home') i.classList.add('active'), i.setAttribute('aria-current','page');
+        else if(('#'+nav) === hash) i.classList.add('active'), i.setAttribute('aria-current','page');
+        else { i.classList.remove('active'); i.removeAttribute('aria-current'); }
+    });
+}
+
+function attachFormHandlers(){
+    restoreProgress();
+    // Attach to any forms in the container
+    const forms = container.querySelectorAll('form');
+    forms.forEach(form=>{
+        // prevent duplicate listeners
+        if(form.__enhanced) return; form.__enhanced = true;
+
+        form.addEventListener('submit', function(e){
+            // For demo: prevent navigation on internal forms and show feedback
+            if(form.getAttribute('action') === '#'){
+                e.preventDefault();
+                vibrate(20);
+                incrementProgress(12);
+                showToast('Búsqueda iniciada');
+                announce('Búsqueda iniciada');
+            } else {
+                // external login submission: give feedback then allow submit
+                vibrate([15,10,15]);
+                incrementProgress(6);
+                showToast('Enviando credenciales…');
+            }
+        });
+    });
+
+    // Bottom nav clicks
+    const navItems = document.querySelectorAll('.bottom-nav-item');
+    navItems.forEach(item=>{
+        if(item.__bound) return; item.__bound = true;
+        item.addEventListener('click', (ev)=>{
+            const target = item.getAttribute('href');
+            // let normal anchor behavior drive hashchange/render
+            vibrate(10);
+            setTimeout(()=> updateNavActive(), 120);
+        });
+    });
+
+    // FAB behaviour
+    const fab = document.querySelector('.fab');
+    if(fab && !fab.__bound){
+        fab.__bound = true;
+        fab.addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            vibrate([8]);
+            location.hash = '#process';
+            showToast('Abrir consulta');
+        });
+    }
+}
+
+// Initialize bindings for static controls
+document.addEventListener('DOMContentLoaded', ()=>{
+    restoreProgress();
+    attachFormHandlers();
+    // highlight nav if present
+    updateNavActive();
 });

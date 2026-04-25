@@ -174,19 +174,54 @@ a.button:focus{
 
 /* INPUTS */
 input,
-select {
+select,
+textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px 12px;
     margin: 10px 0;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.03);
-    color: #fff;
+    /* opaque dark field to guarantee contrast against varied backgrounds */
+    background: #071827; /* deep, desaturated blue-black */
+    color: #ffffff;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-label{display:block;color:var(--muted);margin-bottom:6px;font-weight:600}
+label{display:block;color:var(--sky-2);margin-bottom:6px;font-weight:700}
 
-::placeholder{color:rgba(255,255,255,0.55)}
+::placeholder{color:rgba(255,255,255,0.85)}
+
+/* Focus states for keyboard and touch users */
+input:focus, select:focus, textarea:focus{
+    outline: none;
+    border-color: var(--accent-strong);
+    box-shadow: 0 6px 18px rgba(11,116,224,0.18), 0 0 0 3px rgba(11,116,224,0.08);
+}
+
+/* Increase contrast of select arrows on some browsers */
+select {background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.6) 50%), linear-gradient(135deg, rgba(255,255,255,0.6) 50%, transparent 50%); background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;}
+
+/* Make form-group labels and inputs visually distinct */
+.form-group{position:relative}
+
+/* Make all actionable anchors touch-friendly (mobile-first). If this
+   causes layout issues for desktop, we can scope this to small viewports
+   or apply a `.touch-target` class instead. */
+a[href]{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-width:44px;
+    min-height:44px;
+    padding:8px 10px;
+    border-radius:8px;
+    touch-action:manipulation;
+}
+
+/* Ensure footer links keep contrast and spacing */
+footer a{padding:6px 8px}
 
 /* FOOTER */
  footer {
@@ -291,3 +326,40 @@ footer div {
     .card{padding:16px}
     button,a.button{width:100%;text-align:center}
 }
+
+/* Accessibility helpers */
+.visually-hidden{position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap;}
+
+/* Ensure minimum touch target per WCAG / mobile guidelines */
+button, a.button, .bottom-nav-item, .fab {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px 12px;
+    touch-action: manipulation;
+}
+
+/* Progress bar (micro-incentive) */
+.progress-shell{position:fixed;left:0;right:0;bottom:64px;height:6px;background:rgba(255,255,255,0.06);z-index:999}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(11,116,224,0.18);transition:width .4s ease}
+
+/* Bottom navigation (mobile-first Material Bottom Navigation) */
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.15));display:flex;align-items:center;justify-content:space-around;padding:6px;border-top:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(6px);z-index:1000}
+.bottom-nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);text-decoration:none;font-size:12px;padding:6px 8px;border-radius:8px}
+.bottom-nav-item .label{font-size:11px}
+.bottom-nav-item:focus{outline:3px solid rgba(255,210,106,0.18);outline-offset:2px}
+.bottom-nav-item[aria-current="page"],.bottom-nav-item.active{color:#fff}
+
+/* Floating Action Button */
+.fab{position:fixed;right:18px;bottom:74px;width:56px;height:56px;border-radius:28px;background:linear-gradient(180deg,var(--accent),var(--accent-2));box-shadow:0 14px 28px rgba(4,8,20,0.4);display:block;z-index:1100}
+.fab:before{content:'\f002';font-family: "Font Awesome 6 Free";font-weight:900;color:#fff;display:block;text-align:center;line-height:56px;font-size:18px}
+.fab:focus{outline:3px solid #ffd26a;outline-offset:3px}
+
+/* Toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:140px;background:rgba(0,0,0,0.8);color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.5);z-index:1200;opacity:0;transition:opacity .28s,transform .28s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Provide stronger focus for keyboard users */
+:focus-visible{outline:3px solid #ffd26a;outline-offset:3px}
+
+/* Material-like elevated surfaces (subtle) */
+.card{box-shadow:0 8px 20px rgba(2,6,23,0.18)}

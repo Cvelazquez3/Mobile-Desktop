@@ -27,6 +27,14 @@
 
     <main id="contenido" role="main"></main>
 
+    <!-- Accessible live region for announcements -->
+    <div id="announcer" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+
+    <!-- Progress / gamification bar -->
+    <div class="progress-shell" aria-hidden="false">
+        <div id="progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    </div>
+
     <footer role="contentinfo">
         <section>
             <h5>Ubicación <i class="fa-solid fa-location-crosshairs"></i></h5>
@@ -55,6 +63,29 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Bottom navigation (mobile-first Material pattern) -->
+    <nav class="bottom-nav" role="navigation" aria-label="Navegación principal">
+        <a href="#" data-nav="home" class="bottom-nav-item" aria-current="page">
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="#process" data-nav="process" class="bottom-nav-item">
+            <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+            <span class="label">Trámites</span>
+        </a>
+        <a href="#login" data-nav="login" class="bottom-nav-item">
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
+            <span class="label">Acceso</span>
+        </a>
+    </nav>
+
+    <!-- Floating Action Button (primary action) -->
+    <a href="#process" class="fab" aria-label="Buscar trámite" title="Buscar trámite" role="button"></a>
+
+    <!-- Toast notifications -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true" hidden></div>
+
 </body>
 
 </html>
